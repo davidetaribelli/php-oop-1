@@ -1,42 +1,22 @@
 <?php
-class Movie
-{
-    public $title;
-    public $plot;
-    public $genre;
-    public $release;
 
-    public function __construct($title, $plot, $genre, $release)
-    {
-        $this->title = $title;
-        $this->plot = $plot;
-        $this->genre = $genre;
-        $this->release = $release;
-    }
+require __DIR__ . './models/Movie.php';
 
-    public function calcolaEtaFilm()
-    {
-        $annoCorrente = date('Y');
-        $eta = $annoCorrente - $this->release;
-        return $eta;
-    }
-}
+$film = [
 
-$uncharted = new Movie(
-    'Uncharted',
-    'Nathan Drake e il suo compagno di avventure Sully si lanciano in una pericolosa ricerca per trovare il più grande tesoro perduto, mentre seguono anche gli indizi che potrebbero portare al fratello di Nathan, scomparso da tempo',
-    'Action',
-    '2022'
-);
-
-$batman = new Movie(
-    'Il cavaliere oscuro',
-    'Batman e Jim Gordon si alleano con il nuovo procuratore di Gotham City, Harvey Dent, per combattere il crimine organizzato che dilaga in città e fermare un pericoloso rapinatore, il Joker, che ha gettato la città nell anarchia.',
-    'Action',
-    '2008'
-);
-
-
+    new Movie(
+        'Uncharted',
+        'Nathan Drake e il suo compagno di avventure Sully si lanciano in una pericolosa ricerca per trovare il più grande tesoro perduto, mentre seguono anche gli indizi che potrebbero portare al fratello di Nathan, scomparso da tempo',
+        'Action',
+        '2022'
+    ),
+    new Movie(
+        'Il cavaliere oscuro',
+        'Batman e Jim Gordon si alleano con il nuovo procuratore di Gotham City, Harvey Dent, per combattere il crimine organizzato che dilaga in città e fermare un pericoloso rapinatore, il Joker, che ha gettato la città nell anarchia.',
+        'Action',
+        '2008'
+    )
+]
 ?>
 
 <!DOCTYPE html>
@@ -55,28 +35,19 @@ $batman = new Movie(
             <h1>Lista di Film</h1>
             <div class="col-12">
                 <div class="row justify-content-start align-items-center">
-                    <div class="card my-3 mx-3" style="width: 18rem;">
-                        <div class="card-header">
-                            <?php echo "Titolo: " . $uncharted->title ?>
+                    <?php foreach ($film as $movie) { ?>
+                        <div class="card my-3 mx-3" style="width: 18rem;">
+                            <div class="card-header">
+                                <?php echo "Titolo: " . $movie->title ?>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><?php echo "Genere: " . $movie->genre ?></li>
+                                <li class="list-group-item"><?php echo "Trama: " . $movie->plot ?></li>
+                                <li class="list-group-item"><?php echo "Anno di uscita: " . $movie->release ?></li>
+                                <li class="list-group-item"><?php echo "Il film è di " . $movie->calcolaEtaFilm() . " anno/i fa" ?></li>
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><?php echo "Genere: " . $uncharted->genre ?></li>
-                            <li class="list-group-item"><?php echo "Trama: " . $uncharted->plot ?></li>
-                            <li class="list-group-item"><?php echo "Anno di uscita: " . $uncharted->release ?></li>
-                            <li class="list-group-item"><?php echo "Il film è di " . $uncharted->calcolaEtaFilm() . " anno/i fa" ?></li>
-                        </ul>
-                    </div>
-                    <div class="card my-3 mx-3" style="width: 18rem;">
-                        <div class="card-header">
-                            <?php echo "Titolo: " . $batman->title ?>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><?php echo "Genere: " . $batman->genre ?></li>
-                            <li class="list-group-item"><?php echo "Trama: " . $batman->plot ?></li>
-                            <li class="list-group-item"><?php echo "Anno di uscita: " . $batman->release ?></li>
-                            <li class="list-group-item"><?php echo "Il film è di " . $batman->calcolaEtaFilm() . " anno/i fa" ?></li>
-                        </ul>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -84,3 +55,6 @@ $batman = new Movie(
 </body>
 
 </html>
+
+
+\
